@@ -1,0 +1,13 @@
+name = "pibrain"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".next"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pibrain-db"
+database_id = "c6e49766-1f04-42be-9347-91198e53ded9"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "pibrain-index"
