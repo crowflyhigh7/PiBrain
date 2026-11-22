@@ -5,6 +5,7 @@ import { parsePdfBuffer } from '@/lib/parsers/pdf-parser';
 import { processDocumentAI } from '@/lib/ai-processor';
 import { SourceType } from '@/types/database';
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 /**

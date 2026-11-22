@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceSupabase } from '@/lib/supabase';
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 interface RouteContext {

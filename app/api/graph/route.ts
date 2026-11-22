@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServiceSupabase } from '@/lib/supabase';
 import { GraphData, GraphNode, GraphLink, SourceType } from '@/types/database';
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 /**

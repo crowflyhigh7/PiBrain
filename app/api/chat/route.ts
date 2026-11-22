@@ -3,6 +3,7 @@ import { getServiceSupabase } from '@/lib/supabase';
 import { createEmbedding, generateChatAnswer } from '@/lib/ai-provider';
 import { Citation, MatchedChunk } from '@/types/database';
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 /**

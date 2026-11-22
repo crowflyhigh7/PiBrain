@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServiceSupabase } from '@/lib/supabase';
 import { DocumentLinkInfo, SourceType } from '@/types/database';
 
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 interface RouteContext {
