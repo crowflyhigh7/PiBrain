@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom';
+import { parseHTML } from 'linkedom';
 import { Readability } from '@mozilla/readability';
 
 export interface ParsedWebContent {
@@ -60,16 +60,16 @@ export async function parseWebArticle(url: string): Promise<ParsedWebContent> {
     throw new Error('웹 페이지의 내용이 비어 있습니다.');
   }
 
-  // 3. JSDOM 및 Readability를 통한 본문 추출
+  // 3. linkedom 및 Readability를 통한 본문 추출 (Edge / Cloudflare 호환)
   try {
-    const dom = new JSDOM(html, { url: targetUrl.toString() });
-    const reader = new Readability(dom.window.document);
+    const { document } = parseHTML(html);
+    const reader = new Readability(document as any);
     const article = reader.parse();
 
     if (!article || !article.textContent || article.textContent.trim().length === 0) {
       // Readability 추출 실패 시 body 텍스트 기본 fallback
-      const bodyText = dom.window.document.body?.textContent?.replace(/\s+/g, ' ').trim() || '';
-      const docTitle = dom.window.document.title || targetUrl.hostname;
+      const bodyText = document.body?.textContent?.replace(/\s+/g, ' ').trim() || '';
+      const docTitle = document.title || targetUrl.hostname;
       if (bodyText.length < 50) {
         throw new Error('웹 페이지 본문 텍스트를 추출할 수 없습니다. 내용이 동적으로 로드되는 사이트일 수 있습니다.');
       }
@@ -80,7 +80,7 @@ export async function parseWebArticle(url: string): Promise<ParsedWebContent> {
     }
 
     return {
-      title: article.title || dom.window.document.title || '제목 없음',
+      title: article.title || document.title || '제목 없음',
       content: article.textContent.replace(/\n\s*\n/g, '\n\n').trim(),
       excerpt: article.excerpt || undefined,
       byline: article.byline || undefined,
